@@ -8,18 +8,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050;
+  z-index: 2050;
   pointer-events: none;
 }
 
 .modal {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 5px;
+  border-radius: 7px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
-  height: 50vh;
-  width: 70vh;
+  height: 80vh;
+  width: 100vh;
   z-index: 1050;
 }
 
@@ -38,7 +38,7 @@
   height: 30px;
   border: none;
   border-radius: 50%;
-  background-color: #ff85a2;
+  background-color: #e84f20;
   color: #fff;
   font-size: 16px;
   display: flex;

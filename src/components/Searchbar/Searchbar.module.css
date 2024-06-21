@@ -1,42 +1,62 @@
 /* SearchBar.module.css */
 .searchbar {
-  background-color: #f0f8ff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  background-color: rgb(233, 85, 22);
+  height: 60px;
 }
 
 .form {
-  display: flex;
-  align-items: center;
-  border: 2px solid #ff85a2;
-  border-radius: 5px;
-  overflow: hidden;
+  gap: 5px;
+  line-height: 3em;
+  margin-top: 5px;
+  position: relative;
+  width: 30rem;
+  border-radius: 0.7rem;
+}
+
+input,
+button {
+  height: 2.5rem;
+  border: 0;
+  color: #2f2f2f;
+  font-size: 1rem;
 }
 
 .input {
-  flex-grow: 1;
-  padding: 10px;
-  border: none;
-  font-size: 16px;
-  color: #333;
-  background-color: #ffffff;
+  margin: 5px;
+  width: 100%;
+  background: #fff;
+  border-radius: 0.7rem;
+  padding: 0 1rem;
+  appearance: none;
+  transition: all 0.3s cubic-bezier(0, 0, 0.2, 0.49);
+  transition-property: width, border-radius;
+  z-index: 1;
+  position: relative;
 }
 
 .button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #ff85a2; /* Soft pink */
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  display: block;
-  height: 40px;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  border-radius: 0 0.7rem 0.7rem 0;
+  margin-top: 5px;
+  width: 2.5rem;
 }
 
 .button:hover {
-  background-color: #f0f8ff; /* Light blue on hover */
-  color: #ff85a2; /* Pink text */
+  background-color: #f0f8ff;
+}
+
+input:not(:placeholder-shown) {
+  border-radius: 0.7rem 0 0 0.7rem;
+  width: calc(100% - 2.5rem);
+}
+input:not(:placeholder-shown) + button {
+  display: block;
 }
 
 .buttonLabel {

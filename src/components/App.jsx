@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import SearchBar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import { getAPI } from 'pixabay-api';
 import styles from './App.module.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 class App extends Component {
   state = {
@@ -15,6 +16,11 @@ class App extends Component {
     isError: false,
     isEnd: false,
   };
+
+  constructor() {
+    super();
+    this.endOfListRef = React.createRef();
+  }
 
   async componentDidUpdate(_prevProps, prevState) {
     const { searchQuery, currentPage } = this.state;
@@ -34,7 +40,6 @@ class App extends Component {
 
     try {
       const response = await getAPI(searchQuery, currentPage);
-      console.log(response);
       const { totalHits, hits } = response;
 
       this.setState(prevState => ({
@@ -44,12 +49,13 @@ class App extends Component {
       }));
 
       if (hits.length === 0) {
-        alert('No images found. Try a different search.');
-        return;
+        toast('No images found. Try a different search.');
+      } else  if (currentPage !== 1){
+         this.endOfListRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
     } catch (error) {
       this.setState({ isLoading: false, isError: true });
-      alert(`An error occurred while fetching data: ${error}`);
+      toast.error(`An error occurred while fetching data: ${error}`);
     }
   };
 
@@ -58,12 +64,12 @@ class App extends Component {
     const normalizedCurrentQuery = this.state.searchQuery.toLowerCase();
 
     if (normalizedQuery === '') {
-      alert(`Empty string is not a valid search query. Please type again.`);
+      toast.error(`Empty string is not a valid search query. Please type again.`);
       return;
     }
 
     if (normalizedQuery === normalizedCurrentQuery) {
-      alert(
+      toast.error(
         `Search query is the same as the previous one. Please provide a new search query.`
       );
       return;
@@ -84,7 +90,7 @@ class App extends Component {
     if (!this.state.isEnd) {
       this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
     } else {
-      alert("You've reached the end of the search results.");
+      toast("You've reached the end of the search results.");
     }
   };
 
@@ -92,9 +98,11 @@ class App extends Component {
     const { images, isLoading, isError, isEnd } = this.state;
     return (
       <div className={styles.App}>
+        <div><Toaster position="top-right" /></div>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} />
         {isLoading && <Loader />}
+        <div ref={this.endOfListRef}></div>
         {!isLoading && !isError && images.length > 0 && !isEnd && (
           <Button onClick={this.handleLoadMore} />
         )}
