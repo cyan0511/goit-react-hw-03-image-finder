@@ -26,9 +26,10 @@ class Modal extends Component {
   render() {
     const { image, tags } = this.props;
     return (
-      <div className={styles.overlay} onClick={this.handleBackdropClick}>
+      <div className={styles.overlay}>
         <div className={styles.modal}>
-          <img src={image} alt={tags} />
+          <button onClick={e => {e.stopPropagation(); this.props.onClose();}} className={styles.closeButton}>x</button>
+          <img src={image} alt={tags} onClick={e => e.stopPropagation()} />
         </div>
       </div>
     );

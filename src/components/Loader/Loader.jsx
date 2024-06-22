@@ -7,7 +7,7 @@ class Loader extends Component {
     return (
       <div className={styles.Loader}>
         <div className={styles.loaderBox}>
-          <TailSpin color="#00BFFF" height={80} width={80} />
+          <TailSpin color="#e84f20" strokeWidth={7} height={150} width={150} />
         </div>
       </div>
     );

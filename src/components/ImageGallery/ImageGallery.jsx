@@ -3,14 +3,17 @@ import css from './ImageGallery.module.css';
 
 const  ImageGallery = ({ images }) => {
   return (
-    <ul className={css.gallery}>
-      {images.map(image => (
-        <ImageGalleryItem
-          key={image.id}
-          image={image}
-        />
-      ))}
-    </ul>
+    <>
+      {images.length > 0 ?
+      <ul className={css.gallery}>
+        {images.map(image => (
+          <ImageGalleryItem
+            key={image.id}
+            image={image}
+          />
+        ))}
+      </ul> : null }
+    </>
   );
 };
 

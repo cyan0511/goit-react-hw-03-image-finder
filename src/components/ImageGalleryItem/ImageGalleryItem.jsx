@@ -16,7 +16,7 @@ class ImageGalleryItem extends Component {
     showModal: false,
   };
 
-  toggleModal = () => {
+  toggleModal = ()=> {
     this.setState(prevState => ({
       showModal: !prevState.showModal,
     }));
@@ -28,7 +28,7 @@ class ImageGalleryItem extends Component {
 
     return (
       <li className={styles.galleryItem} onClick={this.toggleModal}>
-        <img src={webformatURL} alt={tags} />
+        <img class={styles.galleryItemImage} src={webformatURL} alt={tags} />
         {showModal && (
           <Modal image={largeImageURL} tags={tags} onClose={this.toggleModal} />
         )}

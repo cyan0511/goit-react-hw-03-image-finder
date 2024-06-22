@@ -8,25 +8,3 @@
   gap: 20px;
   min-height: 100vh;
 }
-
-.galleryItem {
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.galleryItem img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-.galleryItem:hover {
-  transform: translateY(-5px);
-}
-
-.galleryItem:hover img {
-  transform: scale(1.05);
-  border: 3px solid rgb(233, 85, 22);
-}

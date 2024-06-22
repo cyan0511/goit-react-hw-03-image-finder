@@ -17,8 +17,8 @@ class App extends Component {
     isEnd: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.endOfListRef = React.createRef();
   }
 
@@ -30,6 +30,10 @@ class App extends Component {
       prevState.currentPage !== currentPage
     ) {
       await this.fetchImages();
+      if (currentPage !== 1){
+        setTimeout(() =>
+        this.endOfListRef.current?.scrollIntoView({ behavior: 'smooth' }), 500);
+      }
     }
   }
 
@@ -50,8 +54,6 @@ class App extends Component {
 
       if (hits.length === 0) {
         toast('No images found. Try a different search.');
-      } else  if (currentPage !== 1){
-         this.endOfListRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
     } catch (error) {
       this.setState({ isLoading: false, isError: true });
@@ -75,7 +77,6 @@ class App extends Component {
       return;
     }
 
-    // Only update the state and fetch images if the new query is different
     if (normalizedQuery !== normalizedCurrentQuery) {
       this.setState({
         searchQuery: normalizedQuery,
@@ -101,11 +102,12 @@ class App extends Component {
         <div><Toaster position="top-right" /></div>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} />
-        {isLoading && <Loader />}
         <div ref={this.endOfListRef}></div>
+        {isLoading && <Loader />}
         {!isLoading && !isError && images.length > 0 && !isEnd && (
           <Button onClick={this.handleLoadMore} />
         )}
+
         {isError && <p>Something went wrong. Please try again later.</p>}
       </div>
     );

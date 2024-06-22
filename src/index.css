@@ -19,6 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(#324350, #041d2f) no-repeat fixed;
+  overflow: hidden;
 }
 
 /* START OF RESET CSS */
